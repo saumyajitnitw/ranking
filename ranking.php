@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		{
 			echo"<b>Username is invalid</b>".'<br>'.'<br>';
 			echo"Refreshing in 2 seconds";
-			header("refresh:2;url=http://localhost/redirect.html" );
+			header("refresh:2;url=http://localhost/projects/ranking/redirect.html" );
 		}
 	}
 }
