@@ -11,3 +11,8 @@ $(document).ready(function(){
     $('.modal-trigger').leanModal();
 });
 
+
+$('#username').keyup(function() {
+	console.log($('#username').val());
+});
+

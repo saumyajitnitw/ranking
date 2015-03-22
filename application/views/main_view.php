@@ -1,6 +1,6 @@
 <ul class="collapsible" data-collapsible="accordion">
 	<li>
-		<div class="collapsible-header waves-effect" ><h5>CODEFORCES</h5></div>
+		<div class="collapsible-header waves-effect waves-orange"><h5>CODEFORCES</h5></div>
 		<div class="collapsible-body">
 			<div class="row">
 				<div class="input-field col s10 offset-s1">
@@ -9,13 +9,13 @@
 				</div>
 			</div>
 
-			<button class="btn green waves-effect waves-light modal-trigger" href="#show"type="submit" name="action">Get current CodeForces Rating
+			<button class="btn green waves-effect waves-teal modal-trigger" href="#show"type="submit" id="submit1"name="action">Get current CodeForces Rating
 				<i class="mdi-content-send right"></i>
 			</button>
 		</div>
 	</li>
 
-	<li>
+	<li id="two">
 		<div class="collapsible-header waves-effect" ><h5>CODEFORCES</h5></div>
 		<div class="collapsible-body">
 			<div class="row">

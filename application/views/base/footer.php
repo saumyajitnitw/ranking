@@ -2,7 +2,7 @@
 				<div class="modal-content">
 				</div>
 				<div class="modal-footer">
-					<a href="#" class="btn waves-effect waves-light modal-action modal-close" style="margin-right:5%"><i class="mdi-action-done"></i> OK</a>
+					<button onclick="resetdata()" id="ok" class="btn yellow waves-effect waves-light modal-action modal-close" style="margin-right:5%"><i class="mdi-action-done"></i> OK</button>
 				</div>
 			</div>
 
