@@ -13,5 +13,5 @@ if (isset($css)) {
 
 <div class="container">
 	<div class="row">
-		<div class="col blue lighten-5 center-align z-depth-2 s6 offset-s3 grid-example false-click">
+		<div class="col blue lighten-5 center-align z-depth-2 s8 offset-s2 grid-example false-click">
 			<h4>RANKINGS</h4>

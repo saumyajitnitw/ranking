@@ -13,6 +13,30 @@ $(document).ready(function(){
 
 
 $('#username').keyup(function() {
-	console.log($('#username').val());
+	var id=0;
+	var input=$('#username').val();
+	var x="";
+	$.ajax({        
+		type: "POST",
+		url: "ranking/getAllRanks",
+		data: {
+			'username':input 
+		},
+		success: function(data) {
+			input=JSON.parse(data);
+			if(input[0]!='null')
+			{
+				$('.rating-list>tbody').remove();
+				$('.rating-list').append('<tbody>');
+				$('.rating-list').append('<tbody><tr><td>'+input[0]+'</td><td>'+input[1]+'</td></tr></tbody>');   
+			}
+			else
+			{
+				$('.rating-list>tbody').remove();
+				$('.rating-list').trigger(toast('The user does not have a rating or does not exist', 400,'rounded'));
+			}
+		}	
+	}); 
+	var z=1;
+	//alert(x);
 });
-
