@@ -1,2 +1,6 @@
-#Copy the entire folder in your localhost www or htdocs directory in a folder named "ranking".
-#Open your browser and type localhost/ranking
+#Codeforces and Codechef Rank Checker
+Installation Procedure:
+1)Install Xampp or Lampp or Wamp or anyother local server stack.
+2)Fork this repository.
+3)Clone it on your machine inside the 'htdocs' folder or 'www' folder of your LAMPP stack
+4)Open your browser and type localhost/ranking and click Enter
