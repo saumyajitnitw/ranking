@@ -1,42 +1,71 @@
-
-$(document).ready(function(){
-	$('.collapsible').collapsible({
-      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-  });
-});
-
-
-$(document).ready(function(){
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal-trigger').leanModal();
-});
-
-
 $('#username').keyup(function() {
 	var id=0;
 	var input=$('#username').val();
-	var x="";
 	$.ajax({        
 		type: "POST",
 		url: "ranking/getAllRanks",
 		data: {
 			'username':input 
 		},
-		success: function(data) {
-			input=JSON.parse(data);
-			if(input[0]!='null')
+		success: function(data) 
+		{
+			output=JSON.parse(data);
+			var username=input;
+			if(typeof output.cf !=='undefined')
 			{
-				$('.rating-list>tbody').remove();
-				$('.rating-list').append('<tbody>');
-				$('.rating-list').append('<tbody><tr><td>'+input[0]+'</td><td>'+input[1]+'</td></tr></tbody>');   
+				if(output['cf'][0]!='null' && $('.rating-list-cf>tbody>tr:last>td').html()!=output['cf'][0])
+				{
+					$('.rating-list-cf>tbody').remove();
+					$('.rating-list-cf').append('<tbody>');
+					$('.rating-list-cf>tbody').append('<tr><td>'+output['cf'][0]+'</td><td>'+output['cf'][1]+'</td></tr>');   
+				}
 			}
-			else
+			if(typeof output.cc !=='undefined')
 			{
-				$('.rating-list>tbody').remove();
-				$('.rating-list').trigger(toast('The user does not have a rating or does not exist', 400,'rounded'));
+				var count=(output.cc).length;
+				if(count==7)
+				{
+					if(output['cc'][0]!='null' && $('.rating-list-cc>tbody>tr:last>td').html()!=output['cc'][0])
+					{
+						var types=['Long','Short','LTime(All)'];
+						$('.rating-list-cc>tbody').remove();
+						$('.rating-list-cc').append('<tbody>');
+						var i;
+						for(i=0;i<3;i++)
+						{
+							var type=types[i];
+							if(i==0)
+								$('.rating-list-cc>tbody').append('<tr><td>'+username+'</td><td>'+type+'</td><td>'+output['cc'][2*i+1]+'</td><td>'+output['cc'][2*i+2]+'</td></tr>');
+							else
+								$('.rating-list-cc>tbody').append('<tr><td></td><td>'+type+'</td><td>'+output['cc'][2*i+1]+'</td><td>'+output['cc'][2*i+2]+'</td></tr>');
+						} 
+					}
+				}
+				else if(count==9)
+				{
+					var types=['Long','Short','LTime','LTime(All)'];
+					$('.rating-list-cc>tbody').remove();
+					$('.rating-list-cc').append('<tbody>');
+					var i;
+					for(i=0;i<4;i++)
+					{
+						var type=types[i];
+						if(i==0)
+							$('.rating-list-cc>tbody').append('<tr><td>'+username+'</td><td>'+type+'</td><td>'+output['cc'][2*i+1]+'</td><td>'+output['cc'][2*i+2]+'</td></tr>');
+						else
+							$('.rating-list-cc>tbody').append('<tr><td></td><td>'+type+'</td><td>'+output['cc'][2*i+1]+'</td><td>'+output['cc'][2*i+2]+'</td></tr>');
+					} 
+
+				}
 			}
 		}	
 	}); 
-	var z=1;
-	//alert(x);
+});
+$('.clear-btn-cf').click(function(){
+	$('.rating-list-cf>tbody').remove();
+	$('.rating-list-cf').append('<tbody>');
+});
+$('.clear-btn-cc').click(function(){
+	$('.rating-list-cc>tbody').remove();
+	$('.rating-list-cc').append('<tbody>');
 });

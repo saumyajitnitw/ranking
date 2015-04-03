@@ -8,11 +8,8 @@ class Ranking extends CI_Controller {
     }
     public function index()
     {
-		//echo "hello";
         $this->load->helper('url');
-        //echo current_url();
         $this->ranking();
-        //$this->load->view('base/header', $data, $render);
     }
     public function ranking()
     {
@@ -21,8 +18,6 @@ class Ranking extends CI_Controller {
 
     public function _render_page($view, $data=null, $render=false)
     {
-        $this->load->helper('url');
-        //echo current_url();
         $view_html = array(
             $this->load->view('base/header', $data, $render),
             $this->load->view($view,$data, $render),
@@ -32,6 +27,7 @@ class Ranking extends CI_Controller {
     }
     public function getAllRanks()
     {
+        $pass=array();
         $aContext = array(
             'http' => array(
                 'proxy' => 'tcp://172.30.0.15:3128',
@@ -42,28 +38,54 @@ class Ranking extends CI_Controller {
         $cxContext = stream_context_create($aContext);
         $username=strval($_POST["username"]);
         $urlForRating="http://codeforces.com/api/user.rating?handle=".$username;
-        //echo $urlForRating;
         $jsondataRating=@file_get_contents($urlForRating,false,$cxContext);
         $objRating= json_decode($jsondataRating,true);
-        //echo $jsondataRating;
         if($objRating['status']==="OK")
         {
             $rating=intval($objRating['result'][count($objRating['result'])-1]['newRating']);
-            //echo count($objRating);
             $show=array($username,$rating);
-            echo json_encode($show);
+            $pass['cf']=$show;
         }
         else
         {
             $n= array('null');
-            echo json_encode($n);
+            $pass['cfe']=$n;
         }
-    }
-
-    public function a()
-    {
+        $urlForRating="http://codechef.com/users/".$username;
+        $html=@file_get_contents($urlForRating,false,$cxContext);
+        $needle="<hx>";
+        $lastPos=0;
+        $positions=array();
+        while (($lastPos = strpos($html, $needle, $lastPos))!== false)
+        {
+            $positions[] = $lastPos;
+            $lastPos = $lastPos + strlen($needle);
+        }
+        for($i=0;$i<count($positions);$i++)
+        {
+            $positions[$i]+=4;
+        }
+        $needle="</hx>";
+        $lastPos=0;
+        $positions1=array();
+        while (($lastPos = strpos($html, $needle, $lastPos))!== false)
+        {
+            $positions1[] = $lastPos;
+            $lastPos = $lastPos + strlen($needle);
+        }
+        $cc=array();
+        array_push($cc, $username);
+        for($i=0;$i<count($positions);$i++)
+        {
+            array_push($cc,substr($html,$positions[$i],($positions1[$i]-$positions[$i])));
+        }
+        if(count($positions)!=0)
+            $pass['cc']=$cc;
+        if(count($positions)==0)
+        {
+            $n= array('null');
+            $pass['cce']=$n;
+        }
+        echo json_encode($pass);
     }
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
