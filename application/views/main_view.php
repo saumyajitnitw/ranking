@@ -1,3 +1,4 @@
+<title>Ranking</title>
 <ul class="collapsible" data-collapsible="expandable">
 	<li class="col s4  "><br/>
 		<div class="collapsible-header waves-effect waves-orange"><h5>CODEFORCES</h5></div>
